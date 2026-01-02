@@ -15,6 +15,35 @@ import json
 from datetime import datetime
 import marinenav_env.envs.marinenav_env as marinenav_env
 import scipy.spatial
+import time
+from thirdparty.stable_baselines3.common.callbacks import BaseCallback
+
+
+class ETAProgressCallback(BaseCallback):
+    def __init__(self, total_timesteps, print_freq=10000):
+        super().__init__(verbose=0)
+        self.total_timesteps = total_timesteps
+        self.print_freq = print_freq
+        self.start_time = None
+        self.last_print = 0
+
+    def _on_training_start(self) -> None:
+        self.start_time = time.time()
+
+    def _on_step(self) -> bool:
+        if self.start_time is None:
+            return True
+        if self.print_freq and (self.num_timesteps - self.last_print) >= self.print_freq:
+            elapsed = max(time.time() - self.start_time, 1e-6)
+            steps_per_sec = max(self.num_timesteps, 1) / elapsed
+            remaining = max(self.total_timesteps - self.num_timesteps, 0)
+            eta_sec = remaining / max(steps_per_sec, 1e-6)
+            eta_h = int(eta_sec // 3600)
+            eta_m = int((eta_sec % 3600) // 60)
+            eta_s = int(eta_sec % 60)
+            print(f"[ETA] steps/sec: {steps_per_sec:.2f} | remaining: {remaining} | ETA: {eta_h:02d}:{eta_m:02d}:{eta_s:02d}")
+            self.last_print = self.num_timesteps
+        return True
 
 parser = argparse.ArgumentParser(description="Train sb3 model")
 
@@ -119,7 +148,8 @@ def run_trial(device,params):
                 eval_config=eval_config,
                 eval_freq=params["eval_freq"],
                 n_eval_episodes=1, 
-                eval_log_path=exp_dir)
+                eval_log_path=exp_dir,
+                callback=ETAProgressCallback(params["total_timesteps"]))
     
     train_env.close()
     evaluate_env.close()

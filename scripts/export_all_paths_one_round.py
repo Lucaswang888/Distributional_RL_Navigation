@@ -5,8 +5,8 @@ sys.path.insert(0, ROOT)
 
 import env_visualizer
 
-json_file = os.path.join(ROOT, "experiment_data", "exp_data_2025-12-19-19-52-02.json")
-episode_id = 7
+json_file = os.path.join(ROOT, "experiment_data", "exp_data_2025-12-26-03-15-56.json")
+episode_id = 17
 
 with open(json_file, "r") as f:
     exp = json.load(f)

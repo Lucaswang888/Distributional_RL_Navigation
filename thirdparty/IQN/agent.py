@@ -6,6 +6,7 @@ from thirdparty.IQN.model import IQN
 from thirdparty.IQN.model import ObsEncoder
 from thirdparty.IQN.replay_buffer import ReplayBuffer
 import os
+import time
 
 class IQNAgent():
     """Interacts with and learns from the environment."""
@@ -98,9 +99,12 @@ class IQNAgent():
               eval_config,
               eval_freq,
               eval_log_path,
-              verbose=True):
+              verbose=True,
+              eta_interval=10000):
         
         state = train_env.reset()
+        start_time = time.time()
+        last_eta_step = 0
 
         # # Sample CVaR value from (0.0,1.0)
         # cvar = 1 - np.random.uniform(0.0, 1.0)
@@ -151,7 +155,7 @@ class IQNAgent():
 
             if done:
                 ep_num += 1
-                
+
                 if verbose:
                     # print abstract info of learning process
                     print("======== training info ========")
@@ -169,6 +173,18 @@ class IQNAgent():
 
                 state = train_env.reset()
                 # cvar = 1 - np.random.uniform(0.0, 1.0)
+
+            if verbose and eta_interval and (self.current_timestep - last_eta_step) >= eta_interval:
+                elapsed = max(time.time() - start_time, 1e-6)
+                steps_done = max(self.current_timestep, 1)
+                steps_per_sec = steps_done / elapsed
+                remaining = max(total_timesteps - self.current_timestep, 0)
+                eta_sec = remaining / max(steps_per_sec, 1e-6)
+                eta_h = int(eta_sec // 3600)
+                eta_m = int((eta_sec % 3600) // 60)
+                eta_s = int(eta_sec % 60)
+                print(f"[ETA] steps/sec: {steps_per_sec:.2f} | remaining: {remaining} | ETA: {eta_h:02d}:{eta_m:02d}:{eta_s:02d}")
+                last_eta_step = self.current_timestep
 
             self.current_timestep += 1
 
@@ -389,12 +405,12 @@ class IQNAgent():
             # save evaluation data
             np.savez(
                 os.path.join(eval_log_path,filename),
-                timesteps=self.eval_timesteps[policy],
-                actions=self.eval_actions[policy],
-                rewards=self.eval_rewards[policy],
-                successes=self.eval_successes[policy],
-                times=self.eval_times[policy],
-                energies=self.eval_energies[policy]
+                timesteps=np.array(self.eval_timesteps[policy], dtype=np.int64),
+                actions=np.array(self.eval_actions[policy], dtype=object),
+                rewards=np.array(self.eval_rewards[policy], dtype=np.float32),
+                successes=np.array(self.eval_successes[policy], dtype=object),
+                times=np.array(self.eval_times[policy], dtype=object),
+                energies=np.array(self.eval_energies[policy], dtype=object)
             )
 
 

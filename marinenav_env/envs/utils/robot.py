@@ -36,6 +36,10 @@ class Robot:
         self.w = np.array([-np.pi/6,0.0,np.pi/6]) # angular velocities (rad/s)
         self.compute_k() # cofficient of water resistance
         self.compute_actions() # list of actions
+        self.r = 0.8
+        self.max_speed = 2.0
+        # 论文参数：阻力系数 c
+        self.drag_c = 0.5
 
         self.x = None # x coordinate
         self.y = None # y coordinate
@@ -197,7 +201,14 @@ class Robot:
                 reflection_dist = np.linalg.norm(v)
                 self.sonar.reflections[-1] = [v[0]+self.x,v[1]+self.y,1]
 
-                     
 
+    def get_energy_consumption(self, va, dt):
+        """
+        根据论文公式 (3.5) 计算子步能量消耗: E = c * |Va|^3 * dt [cite: 267, 364]
+        va: 机器人推进速度 (speed)
+        dt: 离散时间步长
+        """
+        power = self.drag_c * (np.abs(va) ** 3)
+        return power * dt
 
 

@@ -1,0 +1,1 @@
+{"agent": "IQN", "seed": 0, "total_timesteps": 10000, "eval_freq": 5000, "save_dir": "/Users/wangwenjing/GitHub/Distributional_RL_Navigation/training_data_tmp", "training_time": "2026-01-02-14-17-52"}
