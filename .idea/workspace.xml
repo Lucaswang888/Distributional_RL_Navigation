@@ -48,7 +48,6 @@
     "Python.train_IQN_model.executor": "Run",
     "Python.visualize_exp_episode.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
     "last_opened_file_path": "/Users/wangwenjing/GitHub/Distributional_RL_Navigation",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -203,7 +202,7 @@
       <updated>1766142550805</updated>
       <workItem from="1766142551846" duration="8044000" />
       <workItem from="1766676154264" duration="12404000" />
-      <workItem from="1767329466186" duration="4749000" />
+      <workItem from="1767329466186" duration="5009000" />
     </task>
     <servers />
   </component>
@@ -216,6 +215,6 @@
     <SUITE FILE_PATH="coverage/Distributional_RL_Navigation$plot_eval_returns.coverage" NAME="plot_eval_returns Coverage Results" MODIFIED="1766679695538" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
     <SUITE FILE_PATH="coverage/Distributional_RL_Navigation$export_all_paths_one_round.coverage" NAME="export_all_paths_one_round Coverage Results" MODIFIED="1766691020159" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
     <SUITE FILE_PATH="coverage/Distributional_RL_Navigation$visualize_exp_episode.coverage" NAME="visualize_exp_episode Coverage Results" MODIFIED="1766148583787" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
-    <SUITE FILE_PATH="coverage/Distributional_RL_Navigation$run_experiments.coverage" NAME="run_experiments Coverage Results" MODIFIED="1766690154746" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Distributional_RL_Navigation$run_experiments.coverage" NAME="run_experiments Coverage Results" MODIFIED="1767350432097" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
